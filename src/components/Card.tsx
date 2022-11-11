@@ -12,7 +12,7 @@ type CardPropsType = {
 	disabled: boolean;
 };
 function Card({ card, onHandleCardClick, flipped, disabled }: CardPropsType) {
-	let audio = new Audio('/audio/trumpet.mp3');
+	let audio = new Audio('/audio/click-effect.wav');
 
 	const handleClick = () => {
 		if (!disabled) {
