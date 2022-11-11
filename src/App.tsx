@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Button from './components/Button';
 import Board from './components/Board';
-import Card from './components/Card';
+import Card, { CardObject } from './components/Card';
 const cardImages = [
 	{ src: '/img/cover.jpeg' },
 	{ src: '/img/hiruma.jpg' },
@@ -24,8 +24,9 @@ type CardType = {
 function App() {
 	const [cards, setCards] = useState(Array<CardType>);
 	const [turns, setTurns] = useState(0);
+	const [choiceOne, setChoiceOne] = useState(null);
+	const [choiceTwo, setChoiceTwo] = useState(null);
 	const shuffleCards = () => {
-		console.log('cardImages', cardImages);
 		const shuffledCardList = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({
@@ -37,13 +38,20 @@ function App() {
 		setTurns(0);
 	};
 
+	const onHandleCardClick = (card: any) => {
+		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+	};
 	return (
 		<div className="App">
 			<h1>Memory Game!</h1>
 			<Button onClick={shuffleCards}>New Game</Button>
 			<div className="card-grid">
 				{cards.map((card) => (
-					<Card key={card.id} card={card} />
+					<Card
+						key={card.id}
+						card={card}
+						onHandleCardClick={onHandleCardClick}
+					/>
 				))}
 			</div>
 		</div>

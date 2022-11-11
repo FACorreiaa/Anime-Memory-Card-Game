@@ -1,17 +1,27 @@
 import React from 'react';
 
-type CardProps = {
-	card: {
-		id: number;
-		src: string;
-	};
+export type CardObject = {
+	id: number;
+	src: string;
 };
-function Card({ card }: CardProps) {
+export type CardProps = {
+	card: CardObject;
+	onHandleCardClick: (card: CardObject) => void;
+};
+function Card({ card, onHandleCardClick }: CardProps) {
+	const handleClick = () => {
+		onHandleCardClick(card);
+	};
 	return (
 		<div className="card">
 			<div>
 				<img className="front" src={card.src} alt="card image" />
-				<img className="back" src={'/img/cover.jpeg'} alt="card cover" />
+				<img
+					className="back"
+					src={'/img/cover.jpeg'}
+					alt="card cover"
+					onClick={handleClick}
+				/>
 			</div>
 		</div>
 	);
