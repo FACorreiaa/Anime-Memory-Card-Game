@@ -1,7 +1,11 @@
 import React from 'react';
 
-function Board() {
-	return <div>Board</div>;
+type BoardProps = {
+	children: React.ReactNode;
+};
+
+function Board({ children }: BoardProps) {
+	return <div>{children}</div>;
 }
 
 export default Board;
