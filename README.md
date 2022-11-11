@@ -2,7 +2,7 @@
 
 # WIP
 
-# Styling, Multiplayer, Better point system
+# Styling, Multiplayer, Better point system, better types
 
 # Test on
 
