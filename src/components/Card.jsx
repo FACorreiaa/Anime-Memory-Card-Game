@@ -1,20 +1,13 @@
-import React from 'react';
-
-export type CardObject = {
-	id: number;
-	src: string;
-};
-export type CardProps = {
-	card: CardObject;
-	onHandleCardClick: (card: CardObject) => void;
-};
-function Card({ card, onHandleCardClick }: CardProps) {
+import './Card.css';
+function Card({ card, onHandleCardClick, flipped }) {
 	const handleClick = () => {
 		onHandleCardClick(card);
 	};
+
+	console.log('flipped', flipped);
 	return (
 		<div className="card">
-			<div>
+			<div className={flipped ? 'flipped' : ''}>
 				<img className="front" src={card.src} alt="card image" />
 				<img
 					className="back"
