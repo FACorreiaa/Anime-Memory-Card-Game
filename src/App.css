@@ -18,3 +18,8 @@ button:hover {
   background: #c23866;
   color: #fff;
 }
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}

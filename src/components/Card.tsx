@@ -1,7 +1,22 @@
 import './Card.css';
-function Card({ card, onHandleCardClick, flipped }) {
+
+export type CardObjectType = {
+	id: number;
+	src: string;
+	matched: boolean;
+};
+
+type CardPropsType = {
+	card: CardObjectType;
+	onHandleCardClick: (card: CardObjectType) => void;
+	flipped: boolean;
+	disabled: boolean;
+};
+function Card({ card, onHandleCardClick, flipped, disabled }: CardPropsType) {
 	const handleClick = () => {
-		onHandleCardClick(card);
+		if (!disabled) {
+			onHandleCardClick(card);
+		}
 	};
 
 	console.log('flipped', flipped);

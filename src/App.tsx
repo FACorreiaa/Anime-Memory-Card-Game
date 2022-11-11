@@ -2,7 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import './App.css';
 import Button from './components/Button';
 import Board from './components/Board';
-import Card from './components/Card';
+import Card, { CardObjectType } from './components/Card';
+import PlayerTurns from './components/PlayerTurns';
 const cardImages = [
 	{ src: '/img/cover.jpeg', matched: false },
 	{ src: '/img/hiruma.jpg', matched: false },
@@ -18,10 +19,11 @@ const cardImages = [
 ];
 
 function App() {
-	const [cards, setCards] = useState([]);
+	const [cards, setCards] = useState(Array<CardObjectType>);
 	const [turns, setTurns] = useState(0);
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
+	const [disabled, setDisabled] = useState(false);
 	const shuffleCards = () => {
 		const shuffledCardList = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
@@ -30,11 +32,14 @@ function App() {
 				id: Math.random(),
 			}));
 
+		setChoiceOne(null);
+		setChoiceTwo(null);
 		setCards(shuffledCardList);
 		setTurns(0);
 	};
 
-	const onHandleCardClick = (card) => {
+	const onHandleCardClick = (card: CardObjectType) => {
+		//@ts-ignore
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
 	};
 
@@ -42,13 +47,19 @@ function App() {
 		setChoiceOne(null);
 		setChoiceTwo(null);
 		setTurns((prevTurn) => prevTurn + 1);
+		setDisabled(false);
 	};
 
 	useEffect(() => {
 		if (choiceOne && choiceTwo) {
+			setDisabled(true);
+			//@ts-ignore
+
 			if (choiceOne?.src === choiceTwo?.src) {
 				setCards((prevState) => {
 					return prevState.map((card) => {
+						//@ts-ignore
+
 						if (card.src === choiceOne?.src) {
 							return { ...card, matched: true };
 						} else {
@@ -58,23 +69,28 @@ function App() {
 				});
 				resetTurn();
 			} else {
-				setTimeout(() => resetTurn(), 1500);
+				setTimeout(() => resetTurn(), 500);
 			}
 		}
 	}, [choiceOne, choiceTwo]);
 
-	console.log(cards);
+	//start new gane
+	useEffect(() => {
+		shuffleCards();
+	}, []);
 	return (
 		<div className="App">
-			<h1>Memory Game!</h1>
+			<h1 className="title">Memory Game!</h1>
 			<Button onClick={shuffleCards}>New Game</Button>
-			<Board >
+			<PlayerTurns turns={turns} />
+			<Board>
 				{cards.map((card) => (
 					<Card
 						key={card.id}
 						card={card}
 						onHandleCardClick={onHandleCardClick}
 						flipped={card === choiceOne || card === choiceTwo || card.matched}
+						disabled={disabled}
 					/>
 				))}
 			</Board>
