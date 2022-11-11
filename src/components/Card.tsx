@@ -1,5 +1,4 @@
 import './Card.css';
-
 export type CardObjectType = {
 	id: number;
 	src: string;
@@ -13,8 +12,12 @@ type CardPropsType = {
 	disabled: boolean;
 };
 function Card({ card, onHandleCardClick, flipped, disabled }: CardPropsType) {
+	let audio = new Audio('/audio/trumpet.mp3');
+
 	const handleClick = () => {
 		if (!disabled) {
+			audio.play();
+
 			onHandleCardClick(card);
 		}
 	};
