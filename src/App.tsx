@@ -12,7 +12,6 @@ const cardImages = [
 	{ src: '/img/kongo.jpg', matched: false },
 	{ src: '/img/kusanagi.jpg', matched: false },
 	{ src: '/img/luffy.jpg', matched: false },
-	{ src: '/img/reinhard.jpg', matched: false },
 	{ src: '/img/taiga.jpg', matched: false },
 	{ src: '/img/takamura.jpg', matched: false },
 	{ src: '/img/yoko.jpg', matched: false },
