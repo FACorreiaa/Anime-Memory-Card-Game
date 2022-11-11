@@ -5,7 +5,6 @@ import Board from './components/Board';
 import Card, { CardObjectType } from './components/Card';
 import PlayerTurns from './components/PlayerTurns';
 const cardImages = [
-	{ src: '/img/cover.jpeg', matched: false },
 	{ src: '/img/hiruma.jpg', matched: false },
 	{ src: '/img/ikki.jpg', matched: false },
 	{ src: '/img/ippo.jpg', matched: false },
