@@ -1,6 +1,5 @@
 .board {
   margin-top: 40px;
-  display: grid;
-  grid-template-columns: 5fr 5fr 5fr 5fr;
-  grid-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
