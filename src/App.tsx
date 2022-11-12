@@ -6,7 +6,6 @@ import Card, { CardObjectType } from './components/Card';
 import PlayerTurns from './components/PlayerTurns';
 import Header from './components/Header';
 import MainHeader from './components/Header';
-import { useStartAppHook } from './hooks/start-app-hook';
 
 const cardImages = [
 	{ src: '/img/hiruma.jpg', matched: false },
@@ -20,7 +19,11 @@ const cardImages = [
 	{ src: '/img/yoko.jpg', matched: false },
 ];
 
-enum TURNS {}
+enum PLAYER_ONE {
+	none = 'none',
+	firstCard = 'firstCard',
+	secondCard = 'secondCard',
+}
 function App() {
 	const [cards, setCards] = useState(Array<CardObjectType>);
 	const [turns, setTurns] = useState(0);
@@ -82,6 +85,8 @@ function App() {
 		shuffleCards();
 	}, []);
 
+	console.log('cards', cards);
+	console.log('card type', Array<CardObjectType>);
 	return (
 		<div className="App">
 			<MainHeader shuffleCards={shuffleCards} />

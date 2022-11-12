@@ -22,7 +22,6 @@ function Card({ card, onHandleCardClick, flipped, disabled }: CardPropsType) {
 		}
 	};
 
-	console.log('flipped', flipped);
 	return (
 		<div className="card">
 			<div className={flipped ? 'flipped' : ''}>
