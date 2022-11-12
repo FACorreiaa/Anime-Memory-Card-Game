@@ -2,13 +2,13 @@ import React from 'react';
 import Button from './Button';
 import './Header.css';
 type HeaderProps = {
-	shuffleCards: () => void;
+	onStartGameClick: () => void;
 };
-function MainHeader({ shuffleCards }: HeaderProps) {
+function MainHeader({ onStartGameClick }: HeaderProps) {
 	return (
 		<div>
 			<h1 className="title">Memory Game!</h1>
-			<Button onClick={shuffleCards}>New Game</Button>
+			<Button onClick={onStartGameClick}>New Game</Button>
 		</div>
 	);
 }

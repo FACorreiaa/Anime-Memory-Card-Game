@@ -19,18 +19,15 @@ const cardImages = [
 	{ src: '/img/yoko.jpg', matched: false },
 ];
 
-enum PLAYER_ONE {
-	none = 'none',
-	firstCard = 'firstCard',
-	secondCard = 'secondCard',
-}
 function App() {
 	const [cards, setCards] = useState(Array<CardObjectType>);
 	const [turns, setTurns] = useState(0);
+	const [points, setPoints] = useState(0);
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
 	const [disabled, setDisabled] = useState(false);
-	const shuffleCards = () => {
+
+	const startGame = () => {
 		const shuffledCardList = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({
@@ -42,6 +39,7 @@ function App() {
 		setChoiceTwo(null);
 		setCards(shuffledCardList);
 		setTurns(0);
+		setPoints(0);
 	};
 
 	const onHandleCardClick = (card: CardObjectType) => {
@@ -62,6 +60,7 @@ function App() {
 			//@ts-ignore
 
 			if (choiceOne?.src === choiceTwo?.src) {
+				setPoints((prevPoint) => prevPoint + 1);
 				setCards((prevState) => {
 					return prevState.map((card) => {
 						//@ts-ignore
@@ -82,15 +81,18 @@ function App() {
 
 	//start new gane
 	useEffect(() => {
-		shuffleCards();
+		startGame();
 	}, []);
 
-	console.log('cards', cards);
-	console.log('card type', Array<CardObjectType>);
 	return (
 		<div className="App">
-			<MainHeader shuffleCards={shuffleCards} />
-			<PlayerTurns turns={turns} />
+			<MainHeader onStartGameClick={startGame} />
+			<PlayerTurns turns={turns} points={points} />
+			{cards.every((card) => card.matched) && (
+				<p>
+					You won in ${turns} with ${points}
+				</p>
+			)}
 			<Board>
 				{cards.map((card) => (
 					<Card
