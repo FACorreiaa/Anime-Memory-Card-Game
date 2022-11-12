@@ -4,6 +4,10 @@ import Button from './components/Button';
 import Board from './components/Board';
 import Card, { CardObjectType } from './components/Card';
 import PlayerTurns from './components/PlayerTurns';
+import Header from './components/Header';
+import MainHeader from './components/Header';
+import { useStartAppHook } from './hooks/start-app-hook';
+
 const cardImages = [
 	{ src: '/img/hiruma.jpg', matched: false },
 	{ src: '/img/ikki.jpg', matched: false },
@@ -16,6 +20,7 @@ const cardImages = [
 	{ src: '/img/yoko.jpg', matched: false },
 ];
 
+enum TURNS {}
 function App() {
 	const [cards, setCards] = useState(Array<CardObjectType>);
 	const [turns, setTurns] = useState(0);
@@ -76,10 +81,10 @@ function App() {
 	useEffect(() => {
 		shuffleCards();
 	}, []);
+
 	return (
 		<div className="App">
-			<h1 className="title">Memory Game!</h1>
-			<Button onClick={shuffleCards}>New Game</Button>
+			<MainHeader shuffleCards={shuffleCards} />
 			<PlayerTurns turns={turns} />
 			<Board>
 				{cards.map((card) => (
