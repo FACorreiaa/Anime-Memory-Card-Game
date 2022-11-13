@@ -1,13 +1,22 @@
 import React from 'react';
 import './PlayerTurns.css';
 type PlayerTurnsType = {
-	turns: number;
-	points: number;
 	playerOne: string;
 	playerTwo: string;
+	playerOneTurn: number;
+	playerOnePoints: number;
+	playerTwoTurn: number;
+	playerTwoPoints: number;
 };
 
-function PlayerTurns({ turns, points, playerOne, playerTwo }: PlayerTurnsType) {
+function PlayerTurns({
+	playerOneTurn,
+	playerOnePoints,
+	playerOne,
+	playerTwo,
+	playerTwoTurn,
+	playerTwoPoints,
+}: PlayerTurnsType) {
 	return (
 		//I repeat content here but i would iterate over an object of players to display the respective data
 		<div className="container">
@@ -16,8 +25,8 @@ function PlayerTurns({ turns, points, playerOne, playerTwo }: PlayerTurnsType) {
 					<div className="player-container">
 						<h5 className="player-title">{playerOne}</h5>
 						<div>
-							<span>Turns: {turns}</span>
-							<span>Points: {points}</span>
+							<span>Turns: {playerOneTurn}</span>
+							<span>Points: {playerOnePoints}</span>
 						</div>
 					</div>
 				</div>
@@ -25,8 +34,8 @@ function PlayerTurns({ turns, points, playerOne, playerTwo }: PlayerTurnsType) {
 					<div className="player-container">
 						<h5 className="player-title">{playerTwo}</h5>
 						<div>
-							<span>Turns: {turns}</span>
-							<span>Points: {points}</span>
+							<span>Turns: {playerTwoTurn}</span>
+							<span>Points: {playerTwoPoints}</span>
 						</div>
 					</div>
 				</div>

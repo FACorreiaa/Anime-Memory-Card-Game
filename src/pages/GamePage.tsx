@@ -24,19 +24,23 @@ enum GAME_STATE {
 }
 
 enum PLAYER_TURN {
-	PLAYER_ONE = 'Player 1 Turn',
-	PLAYER_TWO = 'Player 2 Turn',
+	PLAYER_ONE = 'Player 1',
+	PLAYER_TWO = 'Player 2',
 }
 
 function GamePage() {
 	const [cards, setCards] = useState(Array<CardObjectType>);
-	const [turns, setTurns] = useState(0);
-	const [points, setPoints] = useState(0);
+	const [playerOnePoint, setPlayerOnePoints] = useState(0);
+	const [playerTwoPoint, setPlayerTwoPoints] = useState(0);
+	const [playerOneTurn, setPlayerOneTurn] = useState(0);
+	const [playerTwoTurn, setPlayerTwoTurn] = useState(0);
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
 	const [disabled, setDisabled] = useState(false);
-
 	const [gameStatus, setGameStatus] = useState<GAME_STATE>(GAME_STATE.GAME_OFF);
+	const [playerTurn, setPlayerTurn] = useState<PLAYER_TURN>(
+		PLAYER_TURN.PLAYER_ONE
+	);
 
 	const onHandleStartButton = () => {
 		setGameStatus(GAME_STATE.ON_GOING);
@@ -51,8 +55,10 @@ function GamePage() {
 		setChoiceOne(null);
 		setChoiceTwo(null);
 		setCards(shuffledCardList);
-		setTurns(0);
-		setPoints(0);
+		setPlayerOneTurn(0);
+		setPlayerTwoTurn(0);
+		setPlayerOnePoints(0);
+		setPlayerTwoPoints(0);
 	};
 
 	const onHandleCardClick = (card: CardObjectType) => {
@@ -60,20 +66,29 @@ function GamePage() {
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
 	};
 
-	const resetTurn = () => {
+	const resetPlayerOneTurn = () => {
 		setChoiceOne(null);
 		setChoiceTwo(null);
-		setTurns((prevTurn) => prevTurn + 1);
+		setPlayerOneTurn((state) => state + 1);
+		setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
 		setDisabled(false);
 	};
 
-	useEffect(() => {
+	const resetPlayerTwoTurn = () => {
+		setChoiceOne(null);
+		setChoiceTwo(null);
+		setPlayerTwoTurn((state) => state + 1);
+		setPlayerTurn(PLAYER_TURN.PLAYER_ONE);
+		setDisabled(false);
+	};
+
+	const checksValidPlayerOneTurn = () => {
 		if (choiceOne && choiceTwo) {
 			setDisabled(true);
 			//@ts-ignore
 
 			if (choiceOne?.src === choiceTwo?.src) {
-				setPoints((prevPoint) => prevPoint + 1);
+				setPlayerOnePoints((state) => state + 1);
 				setCards((prevState) => {
 					return prevState.map((card) => {
 						//@ts-ignore
@@ -85,11 +100,42 @@ function GamePage() {
 						}
 					});
 				});
-				resetTurn();
+				resetPlayerOneTurn();
 			} else {
-				setTimeout(() => resetTurn(), 500);
+				setTimeout(() => resetPlayerOneTurn(), 500);
 			}
 		}
+	};
+
+	const checksValidPlayerTwoTurn = () => {
+		if (choiceOne && choiceTwo) {
+			setDisabled(true);
+			//@ts-ignore
+
+			if (choiceOne?.src === choiceTwo?.src) {
+				setPlayerTwoPoints((state) => state + 1);
+				setCards((prevState) => {
+					return prevState.map((card) => {
+						//@ts-ignore
+
+						if (card.src === choiceOne?.src) {
+							return { ...card, matched: true };
+						} else {
+							return card;
+						}
+					});
+				});
+				resetPlayerTwoTurn();
+			} else {
+				setTimeout(() => resetPlayerTwoTurn(), 500);
+			}
+		}
+	};
+
+	useEffect(() => {
+		playerTurn === PLAYER_TURN.PLAYER_ONE
+			? checksValidPlayerOneTurn()
+			: checksValidPlayerTwoTurn();
 	}, [choiceOne, choiceTwo]);
 
 	//start new gane
@@ -103,6 +149,8 @@ function GamePage() {
 	};
 	const renderButtonMessage =
 		gameStatus === GAME_STATE.GAME_OFF ? 'Start game' : 'Reset Game';
+
+	console.log('playerTurn', playerTurn);
 	return (
 		<div className="container">
 			<div>
@@ -116,14 +164,16 @@ function GamePage() {
 				<PlayerTurns
 					playerOne="Player 1"
 					playerTwo="Player 2"
-					turns={turns}
-					points={points}
+					playerOneTurn={playerOneTurn}
+					playerTwoTurn={playerTwoTurn}
+					playerOnePoints={playerOnePoint}
+					playerTwoPoints={playerTwoPoint}
 				/>
 
 				{cards.every((card) => card.matched) &&
 				gameStatus === GAME_STATE.GAME_FINISHED ? (
 					<p className="message-status">
-						You won in {turns} turns with {points} pts
+						{playerTurn} won in {playerOneTurn} turns with {playerOnePoint} pts
 					</p>
 				) : (
 					<h3 className="message-status">Enjoy the Game!</h3>
