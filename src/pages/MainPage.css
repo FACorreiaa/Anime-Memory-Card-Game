@@ -11,3 +11,8 @@
   padding: 20px;
   margin: 10px;
 }
+
+.link {
+   color: var(--ctp-macchiato-base);
+   text-decoration: none;
+}
