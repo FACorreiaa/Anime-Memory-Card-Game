@@ -17,6 +17,14 @@ const cardImages = [
 	{ src: '/img/yoko.jpg', matched: false },
 ];
 
+enum GAME_STATE {
+	GAME_OFF = 'OFF',
+	ON_GOING = ' GOING',
+	PLAYER_ONE = 'FIRST_PLAYER_TURN',
+	PLAYER_TWO = 'SECOND_PLAYER_TURN',
+	GAME_FINISHED = 'FINISHED',
+}
+
 function GamePage() {
 	const [cards, setCards] = useState(Array<CardObjectType>);
 	const [turns, setTurns] = useState(0);
@@ -24,8 +32,10 @@ function GamePage() {
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
 	const [disabled, setDisabled] = useState(false);
-
+	const [gameStatus, setGameStatus] = useState<GAME_STATE>(GAME_STATE.GAME_OFF);
 	const onHandleStartButton = () => {
+		setGameStatus(GAME_STATE.ON_GOING);
+
 		const shuffledCardList = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({
@@ -79,18 +89,27 @@ function GamePage() {
 
 	//start new gane
 	useEffect(() => {
-		onHandleStartButton();
+		setGameStatus(GAME_STATE.GAME_OFF);
+		//onHandleStartButton();
 	}, []);
 
+	const onHandleStopButton = () => {
+		setGameStatus(GAME_STATE.GAME_OFF);
+	};
+	const renderButtonMessage =
+		gameStatus === GAME_STATE.GAME_OFF ? 'Start game' : 'Reset Game';
 	return (
 		<div className="container">
 			<div>
 				<Button onClick={onHandleStartButton} className="button">
-					New Game
+					{renderButtonMessage}
 				</Button>
-
+				<Button onClick={onHandleStopButton} className="button">
+					Stop game
+				</Button>
 				<PlayerTurns turns={turns} points={points} />
-				{cards.every((card) => card.matched) ? (
+				{cards.every((card) => card.matched) &&
+				gameStatus === GAME_STATE.GAME_FINISHED ? (
 					<p className="message-status">
 						You won in {turns} turns with {points} pts
 					</p>
@@ -98,17 +117,21 @@ function GamePage() {
 					<p className="message-status">Enjoy the Game!</p>
 				)}
 			</div>
-			<Board>
-				{cards.map((card) => (
-					<Card
-						key={card.id}
-						card={card}
-						onHandleCardClick={onHandleCardClick}
-						flipped={card === choiceOne || card === choiceTwo || card.matched}
-						disabled={disabled}
-					/>
-				))}
-			</Board>
+			{gameStatus === GAME_STATE.GAME_OFF ? (
+				<h4>Enjoy your game</h4>
+			) : (
+				<Board>
+					{cards.map((card) => (
+						<Card
+							key={card.id}
+							card={card}
+							onHandleCardClick={onHandleCardClick}
+							flipped={card === choiceOne || card === choiceTwo || card.matched}
+							disabled={disabled}
+						/>
+					))}
+				</Board>
+			)}
 		</div>
 	);
 }
