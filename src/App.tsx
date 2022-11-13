@@ -1,10 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import Button from './components/Button';
 import Board from './components/Board';
 import Card, { CardObjectType } from './components/Card';
 import PlayerTurns from './components/PlayerTurns';
-import Header from './components/Header';
 import MainHeader from './components/Header';
 
 const cardImages = [

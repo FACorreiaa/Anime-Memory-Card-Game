@@ -1,5 +1,5 @@
 button {
-  background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);;
+  background: linear-gradient(0.15turn, #257ba0, #a7bb98, #d57713);
   padding: 6px 32px;
   border-radius: 26px;
   font-weight: normal;
@@ -10,7 +10,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(0.15turn, #257ba0, #a7bb98, #d57713);;
+  background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);;
 }
 
 .title {
