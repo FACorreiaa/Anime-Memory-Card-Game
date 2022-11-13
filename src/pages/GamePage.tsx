@@ -57,13 +57,13 @@ function GamePage() {
 			setDisabled(true);
 			//@ts-ignore
 
-			if (choiceOne?.id === choiceTwo?.id) {
+			if (choiceOne?.src === choiceTwo?.src) {
 				setPoints((prevPoint) => prevPoint + 1);
 				setCards((prevState) => {
 					return prevState.map((card) => {
 						//@ts-ignore
 
-						if (card.id === choiceOne?.id) {
+						if (card.src === choiceOne?.src) {
 							return { ...card, matched: true };
 						} else {
 							return card;
