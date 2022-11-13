@@ -90,7 +90,7 @@ function GamePage() {
 				<PlayerTurns turns={turns} points={points} />
 				{cards.every((card) => card.matched) ? (
 					<p className="message-status">
-						You won in ${turns} with ${points}
+						You won in {turns} turns with {points} pts
 					</p>
 				) : (
 					<p className="message-status">Enjoy the Game!</p>

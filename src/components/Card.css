@@ -29,11 +29,3 @@
   transform: rotateY(180deg);
   transition-delay: 0.1s;
 }
-
-.flipped .card {
-  display: none;
-}
-
-.flipped .back {
-  display: none;
-}
