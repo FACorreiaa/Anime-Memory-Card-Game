@@ -1,13 +1,12 @@
 import React from 'react';
-
-function MainMenu() {
+import './MainMenu.css';
+type MainMenuProps = {
+	children: React.ReactNode;
+};
+function MainMenu({ children }: MainMenuProps) {
 	return (
 		<div className="container">
-			<div className="menu-wrapper">
-				<p>MainMenu</p>
-				<p>MainMenu</p>
-				<p>MainMenu</p>
-			</div>
+			<div className="menu-wrapper">{children}</div>
 		</div>
 	);
 }

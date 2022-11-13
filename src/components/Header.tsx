@@ -3,7 +3,7 @@ import './Header.css';
 type HeaderProps = {
 	title: string;
 };
-function MainHeader({ title }: HeaderProps) {
+function Header({ title }: HeaderProps) {
 	return (
 		<div className="header-container">
 			<h1 className="title">{title}</h1>
@@ -11,4 +11,4 @@ function MainHeader({ title }: HeaderProps) {
 	);
 }
 
-export default MainHeader;
+export default Header;

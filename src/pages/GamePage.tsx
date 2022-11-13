@@ -3,7 +3,7 @@ import './GamePage.css';
 import Board from '../components/Board';
 import Card, { CardObjectType } from '../components/Card';
 import PlayerTurns from '../components/PlayerTurns';
-import MainHeader from '../components/Header';
+import Header from '../components/Header';
 import Button from '../components/Button';
 const cardImages = [
 	{ src: '/img/hiruma.jpg', matched: false },
@@ -83,18 +83,19 @@ function GamePage() {
 	}, []);
 
 	return (
-		<div className="GamePage">
-			<MainHeader title="Memory Game!" />
-			<Button onClick={onHandleStartButton}>New Game</Button>
+		<div className="container">
+			<div style={{ flex: 1, margin: '100px' }}>
+				<Button onClick={onHandleStartButton}>New Game</Button>
 
-			<PlayerTurns turns={turns} points={points} />
-			{cards.every((card) => card.matched) ? (
-				<p className="message-status">
-					You won in ${turns} with ${points}
-				</p>
-			) : (
-				<p className="message-status">Enjoy the Game!</p>
-			)}
+				<PlayerTurns turns={turns} points={points} />
+				{cards.every((card) => card.matched) ? (
+					<p className="message-status">
+						You won in ${turns} with ${points}
+					</p>
+				) : (
+					<p className="message-status">Enjoy the Game!</p>
+				)}
+			</div>
 			<Board>
 				{cards.map((card) => (
 					<Card
