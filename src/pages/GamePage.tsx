@@ -20,9 +20,12 @@ const cardImages = [
 enum GAME_STATE {
 	GAME_OFF = 'OFF',
 	ON_GOING = ' GOING',
-	PLAYER_ONE = 'FIRST_PLAYER_TURN',
-	PLAYER_TWO = 'SECOND_PLAYER_TURN',
 	GAME_FINISHED = 'FINISHED',
+}
+
+enum PLAYER_TURN {
+	PLAYER_ONE = 'Player 1 Turn',
+	PLAYER_TWO = 'Player 2 Turn',
 }
 
 function GamePage() {
@@ -32,7 +35,9 @@ function GamePage() {
 	const [choiceOne, setChoiceOne] = useState(null);
 	const [choiceTwo, setChoiceTwo] = useState(null);
 	const [disabled, setDisabled] = useState(false);
+
 	const [gameStatus, setGameStatus] = useState<GAME_STATE>(GAME_STATE.GAME_OFF);
+
 	const onHandleStartButton = () => {
 		setGameStatus(GAME_STATE.ON_GOING);
 
@@ -107,18 +112,26 @@ function GamePage() {
 				<Button onClick={onHandleStopButton} className="button">
 					Stop game
 				</Button>
-				<PlayerTurns turns={turns} points={points} />
+
+				<PlayerTurns
+					playerOne="Player 1"
+					playerTwo="Player 2"
+					turns={turns}
+					points={points}
+				/>
+
 				{cards.every((card) => card.matched) &&
 				gameStatus === GAME_STATE.GAME_FINISHED ? (
 					<p className="message-status">
 						You won in {turns} turns with {points} pts
 					</p>
 				) : (
-					<p className="message-status">Enjoy the Game!</p>
+					<h3 className="message-status">Enjoy the Game!</h3>
 				)}
 			</div>
+
 			{gameStatus === GAME_STATE.GAME_OFF ? (
-				<h4>Enjoy your game</h4>
+				<h4>Press Start to train your memory!</h4>
 			) : (
 				<Board>
 					{cards.map((card) => (
