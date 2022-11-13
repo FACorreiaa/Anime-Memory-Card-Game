@@ -84,8 +84,10 @@ function GamePage() {
 
 	return (
 		<div className="container">
-			<div style={{ flex: 1, margin: '100px' }}>
-				<Button onClick={onHandleStartButton}>New Game</Button>
+			<div>
+				<Button onClick={onHandleStartButton} className="button">
+					New Game
+				</Button>
 
 				<PlayerTurns turns={turns} points={points} />
 				{cards.every((card) => card.matched) ? (
