@@ -4,7 +4,7 @@ import Board from '../components/Board';
 import Card, { CardObjectType } from '../components/Card';
 import PlayerTurns from '../components/PlayerTurns';
 import MainHeader from '../components/Header';
-
+import Button from '../components/Button';
 const cardImages = [
 	{ src: '/img/hiruma.jpg', matched: false },
 	{ src: '/img/ikki.jpg', matched: false },
@@ -25,7 +25,7 @@ function GamePage() {
 	const [choiceTwo, setChoiceTwo] = useState(null);
 	const [disabled, setDisabled] = useState(false);
 
-	const startGame = () => {
+	const onHandleStartButton = () => {
 		const shuffledCardList = [...cardImages, ...cardImages]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({
@@ -79,12 +79,14 @@ function GamePage() {
 
 	//start new gane
 	useEffect(() => {
-		startGame();
+		onHandleStartButton();
 	}, []);
 
 	return (
 		<div className="GamePage">
-			<MainHeader onHandleButtonClick={startGame} title="Memory Game!" />
+			<MainHeader title="Memory Game!" />
+			<Button onClick={onHandleStartButton}>New Game</Button>
+
 			<PlayerTurns turns={turns} points={points} />
 			{cards.every((card) => card.matched) ? (
 				<p className="message-status">

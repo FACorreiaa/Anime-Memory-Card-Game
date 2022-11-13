@@ -17,3 +17,12 @@ button:hover {
   font-size: 32px;
   font-weight: bold;
 }
+
+.header-container {
+  max-width: 100%;
+  background: var(--ctp-macchiato-base);
+  padding: 10px;
+  border: none;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
