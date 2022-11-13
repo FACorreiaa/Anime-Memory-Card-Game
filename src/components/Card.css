@@ -12,13 +12,12 @@
   border: none;
   border-radius: 20px;
   border: none;
-  box-shadow: 10px 5px 5px #000;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .card:active {
-  box-shadow: 20px 20px 20px #000;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
 .card .front {
   transform: rotateY(90deg);
   transition: transform 0.8s;

@@ -59,13 +59,13 @@ function App() {
 			setDisabled(true);
 			//@ts-ignore
 
-			if (choiceOne?.src === choiceTwo?.src) {
+			if (choiceOne?.id === choiceTwo?.id) {
 				setPoints((prevPoint) => prevPoint + 1);
 				setCards((prevState) => {
 					return prevState.map((card) => {
 						//@ts-ignore
 
-						if (card.src === choiceOne?.src) {
+						if (card.id === choiceOne?.id) {
 							return { ...card, matched: true };
 						} else {
 							return card;
@@ -88,10 +88,12 @@ function App() {
 		<div className="App">
 			<MainHeader onStartGameClick={startGame} />
 			<PlayerTurns turns={turns} points={points} />
-			{cards.every((card) => card.matched) && (
-				<p>
+			{cards.every((card) => card.matched) ? (
+				<p className="message-status">
 					You won in ${turns} with ${points}
 				</p>
+			) : (
+				<p className="message-status">Enjoy the Game!</p>
 			)}
 			<Board>
 				{cards.map((card) => (

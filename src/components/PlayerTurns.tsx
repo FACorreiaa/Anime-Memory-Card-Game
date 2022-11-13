@@ -6,9 +6,9 @@ type PlayerTurnsType = {
 };
 function PlayerTurns({ turns, points }: PlayerTurnsType) {
 	return (
-		<div>
-			<p>Turns: {turns}</p>
-			<p>Points: {points}</p>
+		<div className="message-data">
+			<span>Turns: {turns}</span>
+			<span>Points: {points}</span>
 		</div>
 	);
 }

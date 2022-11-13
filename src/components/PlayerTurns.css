@@ -1,4 +1,9 @@
-p {
+span {
   font-size: 20px;
   font-weight: bold;
+  padding: 10px;
+}
+
+.message-data {
+  flex-direction: row;
 }
