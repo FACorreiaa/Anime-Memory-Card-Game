@@ -10,7 +10,7 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);;
+  background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);
 }
 
 .title {

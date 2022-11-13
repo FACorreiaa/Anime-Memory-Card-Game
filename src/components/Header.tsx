@@ -2,13 +2,14 @@ import React from 'react';
 import Button from './Button';
 import './Header.css';
 type HeaderProps = {
-	onStartGameClick: () => void;
+	onHandleButtonClick: () => void;
+	title: string;
 };
-function MainHeader({ onStartGameClick }: HeaderProps) {
+function MainHeader({ onHandleButtonClick, title }: HeaderProps) {
 	return (
-		<div>
-			<h1 className="title">Memory Game!</h1>
-			<Button onClick={onStartGameClick}>New Game</Button>
+		<div className="header-container">
+			<h1 className="title">{title}</h1>
+			<Button onClick={onHandleButtonClick}>New Game</Button>
 		</div>
 	);
 }
