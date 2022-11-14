@@ -25,6 +25,11 @@
   transform-style: preserve-3d;
 }
 
+.flipped .cover {
+  transform: rotateY(180deg);
+  transition-delay: 0.1s;
+}
+
 .flipped .front {
   transform: rotateY(180deg);
   transition-delay: 0.1s;
