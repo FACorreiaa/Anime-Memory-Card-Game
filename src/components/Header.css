@@ -1,5 +1,5 @@
 button {
-  background: linear-gradient(0.15turn, #257ba0, #a7bb98, #d57713);
+  background: var(--ctp-macchiato-base);
   padding: 6px 32px;
   border-radius: 26px;
   font-weight: normal;

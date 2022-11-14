@@ -125,13 +125,7 @@ function GamePage() {
 		}
 	};
 
-	useEffect(() => {
-		playerTurn === PLAYER_TURN.PLAYER_ONE
-			? validatePlayerOneTurn()
-			: validatePlayerTwoTurn();
-	}, [choiceOne, choiceTwo]);
-
-	useEffect(() => {
+	const onHandleStopButton = () => {
 		setGameStatus(GAME_STATE.GAME_OFF);
 		setChoiceOne(null);
 		setChoiceTwo(null);
@@ -139,10 +133,6 @@ function GamePage() {
 		setPlayerTwoTurn(0);
 		setPlayerOnePoints(0);
 		setPlayerTwoPoints(0);
-	}, []);
-
-	const onHandleStopButton = () => {
-		setGameStatus(GAME_STATE.GAME_OFF);
 	};
 	const renderButtonMessage =
 		gameStatus === GAME_STATE.GAME_OFF ? 'Start game' : 'Reset Game';
@@ -166,6 +156,22 @@ function GamePage() {
 		}
 		return <h3 className="message-status">Enjoy the Game!</h3>;
 	};
+
+	useEffect(() => {
+		playerTurn === PLAYER_TURN.PLAYER_ONE
+			? validatePlayerOneTurn()
+			: validatePlayerTwoTurn();
+	}, [choiceOne, choiceTwo]);
+
+	useEffect(() => {
+		setGameStatus(GAME_STATE.GAME_OFF);
+		setChoiceOne(null);
+		setChoiceTwo(null);
+		setPlayerOneTurn(0);
+		setPlayerTwoTurn(0);
+		setPlayerOnePoints(0);
+		setPlayerTwoPoints(0);
+	}, []);
 
 	return (
 		<div className="container">
