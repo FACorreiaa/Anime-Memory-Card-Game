@@ -163,16 +163,6 @@ function GamePage() {
 			: validatePlayerTwoTurn();
 	}, [choiceOne, choiceTwo]);
 
-	useEffect(() => {
-		setGameStatus(GAME_STATE.GAME_OFF);
-		setChoiceOne(null);
-		setChoiceTwo(null);
-		setPlayerOneTurn(0);
-		setPlayerTwoTurn(0);
-		setPlayerOnePoints(0);
-		setPlayerTwoPoints(0);
-	}, []);
-
 	return (
 		<div className="container">
 			<div>
