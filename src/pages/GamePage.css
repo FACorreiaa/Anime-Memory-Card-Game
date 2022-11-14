@@ -7,3 +7,10 @@ p.message-status {
   margin-bottom: 20px;
   margin-left: 10px;
 }
+
+.winner-message {
+  padding: 20px;
+  background: var(--ctp-macchiato-base);
+  border-radius: 16px;
+  box-shadow: #cba6f7 6px 2px 16px 0px, #f38ba8 -6px -2px 16px 0px;
+}
