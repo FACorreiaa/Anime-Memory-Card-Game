@@ -66,82 +66,79 @@ function GamePage() {
 		choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
 	};
 
-	const resetPlayerOneTurn = () => {
+	const handleNextTurn = () => {
 		setChoiceOne(null);
 		setChoiceTwo(null);
-		setPlayerOneTurn((state) => state + 1);
-		setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
+		if (playerTurn === PLAYER_TURN.PLAYER_ONE) {
+			setPlayerOneTurn((state) => state + 1);
+			setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
+		} else {
+			setPlayerTwoTurn((state) => state + 1);
+			setPlayerTurn(PLAYER_TURN.PLAYER_ONE);
+		}
 		setDisabled(false);
 	};
 
-	const resetPlayerTwoTurn = () => {
-		setChoiceOne(null);
-		setChoiceTwo(null);
-		setPlayerTwoTurn((state) => state + 1);
-		setPlayerTurn(PLAYER_TURN.PLAYER_ONE);
-		setDisabled(false);
+	const validateMatchedCards = () => {
+		setCards((prevState) => {
+			return prevState.map((card) => {
+				//@ts-ignore
+
+				if (card.src === choiceOne?.src) {
+					return { ...card, matched: true };
+				} else {
+					return card;
+				}
+			});
+		});
 	};
 
-	const checksValidPlayerOneTurn = () => {
+	const validatePlayerOneTurn = () => {
 		if (choiceOne && choiceTwo) {
 			setDisabled(true);
 			//@ts-ignore
 
 			if (choiceOne?.src === choiceTwo?.src) {
 				setPlayerOnePoints((state) => state + 1);
-				setCards((prevState) => {
-					return prevState.map((card) => {
-						//@ts-ignore
-
-						if (card.src === choiceOne?.src) {
-							return { ...card, matched: true };
-						} else {
-							return card;
-						}
-					});
-				});
-				resetPlayerOneTurn();
+				validateMatchedCards();
+				handleNextTurn();
 			} else {
-				setTimeout(() => resetPlayerOneTurn(), 500);
+				setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
+				setTimeout(() => handleNextTurn(), 500);
 			}
 		}
 	};
 
-	const checksValidPlayerTwoTurn = () => {
+	const validatePlayerTwoTurn = () => {
 		if (choiceOne && choiceTwo) {
 			setDisabled(true);
 			//@ts-ignore
 
 			if (choiceOne?.src === choiceTwo?.src) {
 				setPlayerTwoPoints((state) => state + 1);
-				setCards((prevState) => {
-					return prevState.map((card) => {
-						//@ts-ignore
-
-						if (card.src === choiceOne?.src) {
-							return { ...card, matched: true };
-						} else {
-							return card;
-						}
-					});
-				});
-				resetPlayerTwoTurn();
+				validateMatchedCards();
+				handleNextTurn();
 			} else {
-				setTimeout(() => resetPlayerTwoTurn(), 500);
+				setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
+				setTimeout(() => handleNextTurn(), 500);
 			}
 		}
 	};
 
 	useEffect(() => {
 		playerTurn === PLAYER_TURN.PLAYER_ONE
-			? checksValidPlayerOneTurn()
-			: checksValidPlayerTwoTurn();
+			? validatePlayerOneTurn()
+			: validatePlayerTwoTurn();
 	}, [choiceOne, choiceTwo]);
 
-	//start new gane
 	useEffect(() => {
 		setGameStatus(GAME_STATE.GAME_OFF);
-		//onHandleStartButton();
+		setChoiceOne(null);
+		setChoiceTwo(null);
+		setPlayerOneTurn(0);
+		setPlayerTwoTurn(0);
+		setPlayerOnePoints(0);
+		setPlayerTwoPoints(0);
 	}, []);
 
 	const onHandleStopButton = () => {
@@ -150,7 +147,26 @@ function GamePage() {
 	const renderButtonMessage =
 		gameStatus === GAME_STATE.GAME_OFF ? 'Start game' : 'Reset Game';
 
-	console.log('playerTurn', playerTurn);
+	const renderWinnerMessage = () => {
+		const allCardsUp = cards.every((card) => card.matched === true);
+		if (playerOnePoint > playerTwoPoint && allCardsUp) {
+			return (
+				<h4>
+					{PLAYER_TURN.PLAYER_ONE} won the game with {playerOnePoint} points in
+					{playerOneTurn} turns
+				</h4>
+			);
+		} else if (playerOnePoint < playerTwoPoint && allCardsUp) {
+			return (
+				<h4>
+					{PLAYER_TURN.PLAYER_TWO} won the game with {playerTwoPoint} points in
+					{playerTwoTurn} turns
+				</h4>
+			);
+		}
+		return <h3 className="message-status">Enjoy the Game!</h3>;
+	};
+
 	return (
 		<div className="container">
 			<div>
@@ -170,14 +186,7 @@ function GamePage() {
 					playerTwoPoints={playerTwoPoint}
 				/>
 
-				{cards.every((card) => card.matched) &&
-				gameStatus === GAME_STATE.GAME_FINISHED ? (
-					<p className="message-status">
-						{playerTurn} won in {playerOneTurn} turns with {playerOnePoint} pts
-					</p>
-				) : (
-					<h3 className="message-status">Enjoy the Game!</h3>
-				)}
+				{renderWinnerMessage()}
 			</div>
 
 			{gameStatus === GAME_STATE.GAME_OFF ? (
