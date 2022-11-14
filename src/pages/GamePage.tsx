@@ -139,7 +139,7 @@ function GamePage() {
 
 	const renderWinnerMessage = () => {
 		const allCardsUp = cards.every((card) => card.matched === true);
-		if (playerOnePoint === playerTwoPoint) {
+		if (playerOnePoint > playerTwoPoint && allCardsUp) {
 			return (
 				<h4 className="winner-message">
 					{PLAYER_TURN.PLAYER_ONE} won the game with {playerOnePoint} points in
