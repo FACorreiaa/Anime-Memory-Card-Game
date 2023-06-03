@@ -93,29 +93,17 @@ function GamePage() {
 		});
 	};
 
-	const validatePlayerOneTurn = () => {
+	const validateTurn = (currentPlayer: PLAYER_TURN) => {
 		if (choiceOne && choiceTwo) {
 			setDisabled(true);
-			//@ts-ignore
 
-			if (choiceOne?.src === choiceTwo?.src) {
-				setPlayerOnePoints((state) => state + 1);
-				validateMatchedCards();
-				handleNextTurn();
-			} else {
-				setPlayerTurn(PLAYER_TURN.PLAYER_TWO);
-				setTimeout(() => handleNextTurn(), 500);
-			}
-		}
-	};
+			if (choiceOne['src'] === choiceTwo['src']) {
+				if (currentPlayer === PLAYER_TURN.PLAYER_ONE) {
+					setPlayerOnePoints((state) => state + 1);
+				} else if (currentPlayer === PLAYER_TURN.PLAYER_TWO) {
+					setPlayerTwoPoints((state) => state + 1);
+				}
 
-	const validatePlayerTwoTurn = () => {
-		if (choiceOne && choiceTwo) {
-			setDisabled(true);
-			//@ts-ignore
-
-			if (choiceOne?.src === choiceTwo?.src) {
-				setPlayerTwoPoints((state) => state + 1);
 				validateMatchedCards();
 				handleNextTurn();
 			} else {
@@ -159,8 +147,8 @@ function GamePage() {
 
 	useEffect(() => {
 		playerTurn === PLAYER_TURN.PLAYER_ONE
-			? validatePlayerOneTurn()
-			: validatePlayerTwoTurn();
+			? validateTurn(PLAYER_TURN.PLAYER_ONE)
+			: validateTurn(PLAYER_TURN.PLAYER_TWO);
 	}, [choiceOne, choiceTwo]);
 
 	return (
@@ -180,13 +168,28 @@ function GamePage() {
 					playerTwoTurn={playerTwoTurn}
 					playerOnePoints={playerOnePoint}
 					playerTwoPoints={playerTwoPoint}
+					isPlayerOneTurn={
+						playerTurn === PLAYER_TURN.PLAYER_ONE &&
+						gameStatus === GAME_STATE.ON_GOING
+					}
+					isPlayerTwoTurn={
+						playerTurn === PLAYER_TURN.PLAYER_TWO &&
+						gameStatus === GAME_STATE.ON_GOING
+					}
 				/>
+				{/*
+				{playerTurn === PLAYER_TURN.PLAYER_ONE &&
+				gameStatus === GAME_STATE.ON_GOING ? (
+					<div className="player-turn">PLAYER ONE TURN</div>
+				) : (
+					<div className="player-turn">PLAYER TWO TURN</div>
+				)} */}
 
 				{renderWinnerMessage()}
 			</div>
 
 			{gameStatus === GAME_STATE.GAME_OFF ? (
-				<h4>Press Start to train your memory!</h4>
+				<h4>Press Start and train your memory!</h4>
 			) : (
 				<Board>
 					{cards.map((card) => (

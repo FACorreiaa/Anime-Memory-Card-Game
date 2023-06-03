@@ -7,6 +7,8 @@ type PlayerTurnsType = {
 	playerOnePoints: number;
 	playerTwoTurn: number;
 	playerTwoPoints: number;
+	isPlayerOneTurn: boolean;
+	isPlayerTwoTurn: boolean;
 };
 
 function PlayerTurns({
@@ -16,6 +18,8 @@ function PlayerTurns({
 	playerTwo,
 	playerTwoTurn,
 	playerTwoPoints,
+	isPlayerOneTurn,
+	isPlayerTwoTurn,
 }: PlayerTurnsType) {
 	return (
 		//I repeat content here but i would iterate over an object of players to display the respective data
@@ -40,6 +44,16 @@ function PlayerTurns({
 					</div>
 				</div>
 			</div>
+			{isPlayerOneTurn ? (
+				<div className="player-turn">PLAYER ONE TURN</div>
+			) : (
+				''
+			)}
+			{isPlayerTwoTurn ? (
+				<div className="player-turn">PLAYER TWO TURN</div>
+			) : (
+				''
+			)}
 		</div>
 	);
 }
