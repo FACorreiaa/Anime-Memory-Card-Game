@@ -1,0 +1,17 @@
+button {
+	background: var(--ctp-macchiato-base);
+	padding: 6px 32px;
+	border-radius: 26px;
+	font-weight: normal;
+	cursor: pointer;
+	font-size: 1em;
+	color: var(--ctp-mocha-text);
+	border: none;
+
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+button:hover {
+	background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);
+}

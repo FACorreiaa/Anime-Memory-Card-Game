@@ -3,11 +3,6 @@ p.message-status {
 	font-weight: 500;
 }
 
-.button {
-	margin-bottom: 20px;
-	margin-left: 10px;
-}
-
 .winner-message {
 	padding: 20px;
 	background: var(--ctp-macchiato-base);

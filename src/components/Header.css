@@ -1,0 +1,32 @@
+.title {
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.header-container {
+	flex: 1;
+	max-width: 100%;
+	padding: 10px;
+	border: none;
+	border-radius: 16px;
+	margin-bottom: 20px;
+	justify-content: center;
+}
+
+button {
+	background: var(--ctp-latte-base);
+	padding: 6px 32px;
+	border-radius: 26px;
+	font-weight: normal;
+	cursor: pointer;
+	font-size: 1em;
+	color: var(--ctp-latte-text);
+	border: none;
+
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+button:hover {
+	background: linear-gradient(0.15turn, #165f7e, #587442, #6c3f10);
+}
