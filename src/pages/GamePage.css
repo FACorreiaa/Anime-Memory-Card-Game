@@ -5,7 +5,7 @@ p.message-status {
 
 .winner-message {
 	padding: 20px;
-	background: var(--ctp-macchiato-base);
+	background: #f3f3f3;
 	border-radius: 16px;
 	box-shadow: #cba6f7 6px 2px 16px 0px, #f38ba8 -6px -2px 16px 0px;
 }
