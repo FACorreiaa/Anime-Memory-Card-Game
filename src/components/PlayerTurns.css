@@ -33,7 +33,7 @@ span {
 	margin: 20px;
 	font-size: 30px;
 	font-weight: bold;
-	background: -webkit-linear-gradient(#eee, #333);
+	background: -webkit-linear-gradient(#000, #e6e);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
